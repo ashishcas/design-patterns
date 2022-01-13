@@ -1,0 +1,9 @@
+*.class
+.idea/workspace.xml
+.idea/vcs.xml
+*.iml
+.idea/misc.xml
+.idea/dictionaries/*.xml
+.idea/dictionaries/indices/*.dat
+*.xml
+*.idea
