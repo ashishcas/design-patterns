@@ -3,7 +3,7 @@
     * Strategy pattern is used when we have to use multiple algorithms in our program.
     * It’s often used in various frameworks to provide users a way to change the behavior of a class without extending it.
  */
-var Context = /** @class */ (function () {
+var Context = (function () {
     function Context(strategy) {
         this.startegy = strategy;
     }
@@ -36,4 +36,4 @@ var ConcreteStrategyB = /** @class */ (function () {
 var context = new Context(new ConcreteStrategyA());
 context.doSomeBusinessLogic();
 var context2 = new Context(new ConcreteStrategyB());
-context2.doSomeBusinessLogic();
+context2.doSomeBusinessLogic(); 

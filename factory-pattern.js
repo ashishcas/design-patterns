@@ -1,75 +1,59 @@
-// https://refactoring.guru/design-patterns/factory-method/typescript/example
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var Creator = /** @class */ (function () {
-    function Creator() {
+// factory pattern in js 
+// https://www.dofactory.com/javascript/design-patterns/factory
+// 
+
+const Factory = function(){
+    this.createEmployee = function (type) {
+        var employee;
+
+        if (type === "fulltime") {
+            employee = new FullTime();
+        } else if (type === "parttime") {
+            employee = new PartTime();
+        } else if (type === "temporary") {
+            employee = new Temporary();
+        } else if (type === "contractor") {
+            employee = new Contractor();
+        }
+
+        employee.type = type;
+
+        employee.say = function () {
+            console.log(this.type + ": rate " + this.hourly + "/hour");
+        }
+
+        return employee;
     }
-    Creator.prototype.someOperation = function () {
-        var product = this.factoryMethod();
-        return "Creator: The same creator's code has just worked with ".concat(product.operation());
-    };
-    return Creator;
-}());
-var Product1 = /** @class */ (function () {
-    function Product1() {
-    }
-    Product1.prototype.listParts = function () {
-        throw new Error("Method not implemented.");
-    };
-    Product1.prototype.operation = function () {
-        return '{Result of the ConcreteProduct1}';
-    };
-    return Product1;
-}());
-var Product2 = /** @class */ (function () {
-    function Product2() {
-    }
-    Product2.prototype.operation = function () {
-        return '{Result of the ConcreteProduct2}';
-    };
-    return Product2;
-}());
-var Creator1 = /** @class */ (function (_super) {
-    __extends(Creator1, _super);
-    function Creator1() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    Creator1.prototype.factoryMethod = function () {
-        return new Product1();
-    };
-    return Creator1;
-}(Creator));
-var Creator2 = /** @class */ (function (_super) {
-    __extends(Creator2, _super);
-    function Creator2() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    Creator2.prototype.factoryMethod = function () {
-        return new Product2();
-    };
-    return Creator2;
-}(Creator));
-function clientCode(creator) {
-    // ...
-    console.log('Client: I\'m not aware of the creator\'s class, but it still works.');
-    console.log(creator.someOperation());
-    // ...
 }
-console.log('App: Launched with the ConcreteCreator1.');
-clientCode(new Creator1());
-console.log('');
-console.log('App: Launched with the ConcreteCreator2.');
-clientCode(new Creator2());
+var FullTime = function () {
+    this.hourly = "$12";
+};
+
+var PartTime = function () {
+    this.hourly = "$11";
+};
+
+var Temporary = function () {
+    this.hourly = "$10";
+};
+
+var Contractor = function () {
+    this.hourly = "$15";
+};
+
+function run() {
+
+    var employees = [];
+    var factory = new Factory();
+
+    employees.push(factory.createEmployee("fulltime"));
+    employees.push(factory.createEmployee("parttime"));
+    employees.push(factory.createEmployee("temporary"));
+    employees.push(factory.createEmployee("contractor"));
+
+    for (var i = 0, len = employees.length; i < len; i++) {
+        employees[i].say();
+    }
+}
+
+run();
